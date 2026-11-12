@@ -1,0 +1,1 @@
+import { NextResponse } from 'next/server'; import { robustness } from '../../../lib/data'; export const dynamic='force-dynamic'; export async function GET(){try{return NextResponse.json(await robustness());}catch{return NextResponse.json({error:'Robustness outputs unavailable.'},{status:500});}}

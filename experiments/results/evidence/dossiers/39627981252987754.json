@@ -1,0 +1,114 @@
+{
+  "specid": "39627981252987754",
+  "targetid": "39627981252987754",
+  "coordinates": {
+    "ra_deg": 223.2324823732924,
+    "dec_deg": 8.084993774675713
+  },
+  "redshift": 1.696336297444903,
+  "redshift_warning": {
+    "value": 4,
+    "flags": [
+      {
+        "bit": 2,
+        "name": "SMALL_DELTA_CHI2",
+        "description": "best and second-best fit chi-squared values are too close"
+      }
+    ]
+  },
+  "phase_3_scores_and_ranks": {
+    "spectral_anomaly_score": 0.5040598831620169,
+    "spectral_rank": 10,
+    "image_anomaly_score": 0.3446211338290484,
+    "image_rank": 196,
+    "multimodal_anomaly_score": 0.46116314307703293,
+    "multimodal_rank": 23
+  },
+  "modality_relationship": "Spectral-dominated",
+  "spectral_quality": {
+    "samples": 7781,
+    "wavelength_min_angstrom": 3600.0,
+    "wavelength_max_angstrom": 9824.000000000524,
+    "nonfinite_wavelength_or_flux_count": 0,
+    "positive_ivar_fraction": 0.9998714818146768,
+    "mask_nonzero_fraction": 0.00012851818532322323,
+    "mask_value_counts": {
+      "0": 7780,
+      "1": 1
+    },
+    "valid_pixel_fraction": 0.9998714818146768,
+    "valid_pixel_count": 7780,
+    "snr_median": 0.21783128015148379,
+    "snr_abs_p90": 1.7250794440510067,
+    "flux_median_valid": 0.06301520764827728,
+    "flux_mad_valid": 0.21012026071548462
+  },
+  "model_discrepancy": {
+    "residual_valid_pixels": 7780,
+    "residual_valid_fraction": 0.9998714818146768,
+    "residual_median": -0.0018380209803581238,
+    "residual_mad": 0.2094588689506054,
+    "residual_rms": 0.6811381478412536,
+    "standardized_residual_abs_p95": 1.9888814276674696,
+    "standardized_residual_abs_p99": 2.7137683722236905,
+    "high_standardized_residual_pixel_count": 0,
+    "discrepancy_regions": []
+  },
+  "image_evidence": {
+    "bands": "grz",
+    "per_band_statistics": {
+      "g": {
+        "finite_pixels": 4096,
+        "invalid_fraction": 0.0,
+        "median": 0.00022878730669617653,
+        "mad": 0.0015454249223694205,
+        "p05": -0.003428744792472571,
+        "p95": 0.0046184491366147995
+      },
+      "r": {
+        "finite_pixels": 4096,
+        "invalid_fraction": 0.0,
+        "median": 0.0006489685038104653,
+        "mad": 0.0024625488149467856,
+        "p05": -0.005436460953205824,
+        "p95": 0.008429097943007946
+      },
+      "z": {
+        "finite_pixels": 4096,
+        "invalid_fraction": 0.0,
+        "median": 0.0013853395357728004,
+        "mad": 0.00644801533780992,
+        "p05": -0.013484307797625661,
+        "p95": 0.019704916048794985
+      }
+    },
+    "quality_and_proxy_metrics": {
+      "image_band_count": 3.0,
+      "image_height_px": 64.0,
+      "image_width_px": 64.0,
+      "image_finite_fraction": 1.0,
+      "image_invalid_fraction": 0.0,
+      "image_pixel_median": 0.0005373673920985311,
+      "image_pixel_mad": 0.0026790717092808336,
+      "background_median": 0.0005128347256686538,
+      "background_noise_mad": 0.0037698926822980865,
+      "image_snr_proxy_median": 0.09181871415089184,
+      "concentration_proxy_median": 0.19587902064552795,
+      "asymmetry_proxy_median": 1.4469998339026986
+    }
+  },
+  "limitations": [
+    "Scores are Phase 3 relative baseline rankings, not probabilities or discoveries.",
+    "Fitted-model residuals are spectral model discrepancy diagnostics, not evidence of physical-model failure.",
+    "Image concentration, asymmetry, and S/N are simple proxies, not morphology classifications.",
+    "Legacy Survey image comparison is cross-survey consistency evidence, not independent confirmation."
+  ],
+  "alternative_explanations": [
+    "low valid-pixel coverage or masking",
+    "limited spectral S/N or redshift-fit warning flags",
+    "image background/contrast differences or cutout context",
+    "baseline sensitivity to the small, GALAXY-only selection"
+  ],
+  "recommended_follow_up": "Inspect the raw spectrum, mask locations, fitted-model assumptions, redshift-warning flags, and cutout context before any astrophysical interpretation.",
+  "plot": "experiments/results/evidence/plots/39627981252987754.png"
+}

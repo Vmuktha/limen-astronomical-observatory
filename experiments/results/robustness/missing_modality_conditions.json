@@ -1,0 +1,20 @@
+[
+  {
+    "condition": "both_available",
+    "spectral_baseline": "available",
+    "image_baseline": "available",
+    "multimodal_baseline": "available"
+  },
+  {
+    "condition": "spectral_unavailable",
+    "spectral_baseline": "unavailable",
+    "image_baseline": "available",
+    "multimodal_baseline": "unavailable"
+  },
+  {
+    "condition": "image_unavailable",
+    "spectral_baseline": "available",
+    "image_baseline": "unavailable",
+    "multimodal_baseline": "unavailable"
+  }
+]

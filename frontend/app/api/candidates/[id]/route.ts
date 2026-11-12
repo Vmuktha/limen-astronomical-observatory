@@ -1,0 +1,1 @@
+import { NextResponse } from 'next/server'; import { dossier } from '../../../../lib/data'; export const dynamic='force-dynamic'; export async function GET(_:Request,{params}:{params:{id:string}}){try{return NextResponse.json(await dossier(params.id));}catch{return NextResponse.json({error:'Evidence dossier unavailable.'},{status:404});}}

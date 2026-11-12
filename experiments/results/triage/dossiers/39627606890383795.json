@@ -1,0 +1,236 @@
+{
+  "candidate": {
+    "specid": "39627606890383795",
+    "targetid": "39627606890383795",
+    "coordinates": {
+      "ra_deg": 176.8377026521485,
+      "dec_deg": -7.434795345884044
+    },
+    "redshift": 0.08290832286314222,
+    "redshift_warning": {
+      "value": 0,
+      "flags": []
+    },
+    "phase_3_scores_and_ranks": {
+      "spectral_anomaly_score": 0.36992295047918794,
+      "spectral_rank": 196,
+      "image_anomaly_score": 0.6378318290827331,
+      "image_rank": 4,
+      "multimodal_anomaly_score": 0.5037819928829199,
+      "multimodal_rank": 9
+    },
+    "modality_relationship": "Image-dominated",
+    "spectral_quality": {
+      "samples": 7781,
+      "wavelength_min_angstrom": 3600.0,
+      "wavelength_max_angstrom": 9824.000000000524,
+      "nonfinite_wavelength_or_flux_count": 0,
+      "positive_ivar_fraction": 0.982135972240072,
+      "mask_nonzero_fraction": 0.01786402775992803,
+      "mask_value_counts": {
+        "0": 7642,
+        "1": 139
+      },
+      "valid_pixel_fraction": 0.982135972240072,
+      "valid_pixel_count": 7642,
+      "snr_median": 1.4090817648534024,
+      "snr_abs_p90": 2.8814161620585144,
+      "flux_median_valid": 0.4123941659927368,
+      "flux_mad_valid": 0.22535908222198486
+    },
+    "model_discrepancy": {
+      "residual_valid_pixels": 7642,
+      "residual_valid_fraction": 0.982135972240072,
+      "residual_median": 0.004437178373336792,
+      "residual_mad": 0.21403127908706665,
+      "residual_rms": 0.6260662612395773,
+      "standardized_residual_abs_p95": 2.037097836770329,
+      "standardized_residual_abs_p99": 2.7302665579147334,
+      "high_standardized_residual_pixel_count": 0,
+      "discrepancy_regions": []
+    },
+    "image_evidence": {
+      "bands": "grz",
+      "per_band_statistics": {
+        "g": {
+          "finite_pixels": 4096,
+          "invalid_fraction": 0.0,
+          "median": 0.003266523126512766,
+          "mad": 0.004850680939853191,
+          "p05": -0.0038623791188001633,
+          "p95": 0.09555699490010738
+        },
+        "r": {
+          "finite_pixels": 4096,
+          "invalid_fraction": 0.0,
+          "median": 0.004644997417926788,
+          "mad": 0.006746009108610451,
+          "p05": -0.0044109312584623694,
+          "p95": 0.14309421926736832
+        },
+        "z": {
+          "finite_pixels": 4096,
+          "invalid_fraction": 0.0,
+          "median": 0.010266108438372612,
+          "mad": 0.015126332407817245,
+          "p05": -0.015298799378797412,
+          "p95": 0.18985387310385704
+        }
+      },
+      "quality_and_proxy_metrics": {
+        "image_band_count": 3.0,
+        "image_height_px": 64.0,
+        "image_width_px": 64.0,
+        "image_finite_fraction": 1.0,
+        "image_invalid_fraction": 0.0,
+        "image_pixel_median": 0.005054028471931815,
+        "image_pixel_mad": 0.00810255913529545,
+        "background_median": 0.0020732467528432608,
+        "background_noise_mad": 0.0060311013461323455,
+        "image_snr_proxy_median": 2.5939858854048787,
+        "concentration_proxy_median": 0.16671753728114116,
+        "asymmetry_proxy_median": 1.8268940927858999
+      }
+    },
+    "limitations": [
+      "Scores are Phase 3 relative baseline rankings, not probabilities or discoveries.",
+      "Fitted-model residuals are spectral model discrepancy diagnostics, not evidence of physical-model failure.",
+      "Image concentration, asymmetry, and S/N are simple proxies, not morphology classifications.",
+      "Legacy Survey image comparison is cross-survey consistency evidence, not independent confirmation."
+    ],
+    "alternative_explanations": [
+      "low valid-pixel coverage or masking",
+      "limited spectral S/N or redshift-fit warning flags",
+      "image background/contrast differences or cutout context",
+      "baseline sensitivity to the small, GALAXY-only selection"
+    ],
+    "recommended_follow_up": "Inspect the raw spectrum, mask locations, fitted-model assumptions, redshift-warning flags, and cutout context before any astrophysical interpretation.",
+    "plot": "experiments/results/evidence/plots/39627606890383795.png"
+  },
+  "evidence_dimensions": {
+    "anomaly_evidence": {
+      "spectral_anomaly_score": 0.36992295047918794,
+      "spectral_rank": 196,
+      "image_anomaly_score": 0.6378318290827331,
+      "image_rank": 4,
+      "multimodal_anomaly_score": 0.5037819928829199,
+      "multimodal_rank": 9
+    },
+    "observational_reliability": {
+      "spectral": {
+        "samples": 7781,
+        "wavelength_min_angstrom": 3600.0,
+        "wavelength_max_angstrom": 9824.000000000524,
+        "nonfinite_wavelength_or_flux_count": 0,
+        "positive_ivar_fraction": 0.982135972240072,
+        "mask_nonzero_fraction": 0.01786402775992803,
+        "mask_value_counts": {
+          "0": 7642,
+          "1": 139
+        },
+        "valid_pixel_fraction": 0.982135972240072,
+        "valid_pixel_count": 7642,
+        "snr_median": 1.4090817648534024,
+        "snr_abs_p90": 2.8814161620585144,
+        "flux_median_valid": 0.4123941659927368,
+        "flux_mad_valid": 0.22535908222198486
+      },
+      "image": {
+        "image_band_count": 3.0,
+        "image_height_px": 64.0,
+        "image_width_px": 64.0,
+        "image_finite_fraction": 1.0,
+        "image_invalid_fraction": 0.0,
+        "image_pixel_median": 0.005054028471931815,
+        "image_pixel_mad": 0.00810255913529545,
+        "background_median": 0.0020732467528432608,
+        "background_noise_mad": 0.0060311013461323455,
+        "image_snr_proxy_median": 2.5939858854048787,
+        "concentration_proxy_median": 0.16671753728114116,
+        "asymmetry_proxy_median": 1.8268940927858999
+      },
+      "zwarn": {
+        "value": 0,
+        "flags": []
+      }
+    },
+    "model_discrepancy": {
+      "residual_valid_pixels": 7642,
+      "residual_valid_fraction": 0.982135972240072,
+      "residual_median": 0.004437178373336792,
+      "residual_mad": 0.21403127908706665,
+      "residual_rms": 0.6260662612395773,
+      "standardized_residual_abs_p95": 2.037097836770329,
+      "standardized_residual_abs_p99": 2.7302665579147334,
+      "high_standardized_residual_pixel_count": 0,
+      "discrepancy_regions": []
+    },
+    "cross_modal_relationship": "Image-dominated",
+    "robustness": {
+      "spectral": {
+        "availability": "available",
+        "runs": 12,
+        "median_absolute_rank_displacement": 13.0,
+        "max_absolute_rank_displacement": 40,
+        "top20_retention_fraction": 0.0,
+        "entered_top20_due_to_degradation_count": 0,
+        "scenarios": [
+          "spectral_coverage",
+          "spectral_mask",
+          "spectral_noise"
+        ],
+        "interpretation": "controlled refit-pipeline sensitivity; not frozen-model robustness or scientific accuracy"
+      },
+      "image": {
+        "availability": "available",
+        "runs": 12,
+        "median_absolute_rank_displacement": 1.5,
+        "max_absolute_rank_displacement": 3,
+        "top20_retention_fraction": 1.0,
+        "entered_top20_due_to_degradation_count": 0,
+        "scenarios": [
+          "image_blur",
+          "image_mask",
+          "image_noise"
+        ],
+        "interpretation": "controlled refit-pipeline sensitivity; not frozen-model robustness or scientific accuracy"
+      },
+      "multimodal": {
+        "availability": "available",
+        "runs": 24,
+        "median_absolute_rank_displacement": 2.5,
+        "max_absolute_rank_displacement": 9,
+        "top20_retention_fraction": 1.0,
+        "entered_top20_due_to_degradation_count": 0,
+        "scenarios": [
+          "image_blur",
+          "image_mask",
+          "image_noise",
+          "spectral_coverage",
+          "spectral_mask",
+          "spectral_noise"
+        ],
+        "interpretation": "controlled refit-pipeline sensitivity; not frozen-model robustness or scientific accuracy"
+      },
+      "missing_modality_behavior": "No multimodal score exists when either modality is unavailable; modalities are never zero-filled."
+    }
+  },
+  "triage": {
+    "category": "Image investigation candidate",
+    "reasons": [
+      "Original Phase 3 image rank is in the top 20 while spectral rank is not."
+    ],
+    "remaining_uncertainties": [
+      "Cross-modal agreement is limited; image descriptors are proxies, not morphology classifications."
+    ],
+    "rule_definitions": {
+      "insufficient_evidence": "Spectral valid-pixel fraction is below 0.50, S/N is unavailable, or image invalid-pixel fraction is at least 0.25.",
+      "multimodal_agreement": "Both original Phase 3 spectral and image ranks are in their top 20 and evidence is not insufficient.",
+      "evidence_sensitive": "For a modality that originally ranked in the top 20, fewer than half of its applicable controlled degradation runs retain top-20 membership, or median absolute rank displacement is at least 25. This is refit-pipeline sensitivity, not a quality score.",
+      "spectral_candidate": "Original Phase 3 spectral rank is in the top 20, with sufficient evidence and without the evidence-sensitive rule.",
+      "image_candidate": "Original Phase 3 image rank is in the top 20, with sufficient evidence and without the evidence-sensitive rule."
+    },
+    "interpretation_boundary": "Rule-based workflow category only; it is not a weighted priority score, probability, astrophysical significance, or discovery claim."
+  },
+  "suggested_follow_up": "Review the source Phase 4 spectrum/model/residual and image dossier; inspect measurement quality and method limitations before any physical interpretation."
+}

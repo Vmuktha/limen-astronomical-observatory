@@ -1,0 +1,1 @@
+import { NextResponse } from 'next/server'; import { candidates } from '../../../lib/data'; export const dynamic='force-dynamic'; export async function GET(){try{return NextResponse.json(await candidates());}catch{return NextResponse.json({error:'Candidate table unavailable.'},{status:500});}}

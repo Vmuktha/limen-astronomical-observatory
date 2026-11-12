@@ -1,0 +1,1 @@
+import { NextResponse } from 'next/server'; import { researchSummary } from '../../../lib/data'; export const dynamic='force-dynamic'; export async function GET(){try{return NextResponse.json(await researchSummary());}catch{return NextResponse.json({error:'Research summary unavailable.'},{status:500});}}

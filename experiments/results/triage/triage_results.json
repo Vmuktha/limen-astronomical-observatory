@@ -1,0 +1,128 @@
+{
+  "generated_at_utc": "2026-11-12T06:31:06.459039+00:00",
+  "candidate_count": 39,
+  "category_counts": {
+    "Image investigation candidate": 18,
+    "Spectral investigation candidate": 16,
+    "Evidence-sensitive candidate": 4,
+    "Multimodal agreement: unusual in both modalities": 1
+  },
+  "rules": {
+    "insufficient_evidence": "Spectral valid-pixel fraction is below 0.50, S/N is unavailable, or image invalid-pixel fraction is at least 0.25.",
+    "multimodal_agreement": "Both original Phase 3 spectral and image ranks are in their top 20 and evidence is not insufficient.",
+    "evidence_sensitive": "For a modality that originally ranked in the top 20, fewer than half of its applicable controlled degradation runs retain top-20 membership, or median absolute rank displacement is at least 25. This is refit-pipeline sensitivity, not a quality score.",
+    "spectral_candidate": "Original Phase 3 spectral rank is in the top 20, with sufficient evidence and without the evidence-sensitive rule.",
+    "image_candidate": "Original Phase 3 image rank is in the top 20, with sufficient evidence and without the evidence-sensitive rule."
+  },
+  "comparison": {
+    "conventional_order": "Phase 3 multimodal rank ascending",
+    "evidence_aware_workflow": "Triage category plus its explicit reasons; no reordered numeric priority list is created.",
+    "top20_multimodal_categories": [
+      {
+        "specid": "39627639111026332",
+        "rank": 1,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39627855344173207",
+        "rank": 2,
+        "category": "Spectral investigation candidate"
+      },
+      {
+        "specid": "39627837216396200",
+        "rank": 3,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39632966393007105",
+        "rank": 4,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39627990195245267",
+        "rank": 5,
+        "category": "Spectral investigation candidate"
+      },
+      {
+        "specid": "39627823991751936",
+        "rank": 6,
+        "category": "Spectral investigation candidate"
+      },
+      {
+        "specid": "39627754928341657",
+        "rank": 7,
+        "category": "Multimodal agreement: unusual in both modalities"
+      },
+      {
+        "specid": "39628394551316810",
+        "rank": 8,
+        "category": "Spectral investigation candidate"
+      },
+      {
+        "specid": "39627606890383795",
+        "rank": 9,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39627654936135626",
+        "rank": 10,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39627836251702843",
+        "rank": 11,
+        "category": "Spectral investigation candidate"
+      },
+      {
+        "specid": "39627719171899760",
+        "rank": 12,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39633451518791941",
+        "rank": 13,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39628454177541294",
+        "rank": 14,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39632950018442832",
+        "rank": 15,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39627497561654302",
+        "rank": 16,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39627432617054050",
+        "rank": 17,
+        "category": "Evidence-sensitive candidate"
+      },
+      {
+        "specid": "39636377268128092",
+        "rank": 18,
+        "category": "Spectral investigation candidate"
+      },
+      {
+        "specid": "39627682715013964",
+        "rank": 19,
+        "category": "Image investigation candidate"
+      },
+      {
+        "specid": "39627842132117545",
+        "rank": 20,
+        "category": "Spectral investigation candidate"
+      }
+    ]
+  },
+  "limitations": [
+    "This is a workflow comparison, not proof of improved astrophysical accuracy.",
+    "A rule threshold is an explicit operational choice, not an empirical probability.",
+    "The input is a small GALAXY-only pilot and cannot support population-level conclusions."
+  ]
+}

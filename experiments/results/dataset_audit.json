@@ -1,0 +1,281 @@
+{
+  "generated_at_utc": "2026-11-11T20:27:40.183056+00:00",
+  "observations_manifested": 200,
+  "observations_characterized": 200,
+  "spectral_errors": [],
+  "image_errors": [],
+  "identifier_audit": {
+    "unique_specids": 200,
+    "duplicate_specids": 0,
+    "valid_coordinates": 200,
+    "duplicate_coordinate_pairs": 0
+  },
+  "array_inventory": {
+    "spectral_array_sets": [
+      "flux;ivar;mask;model;wavelength"
+    ],
+    "image_band_sets": [
+      "grz"
+    ],
+    "spectral_sample_count": {
+      "count": 200,
+      "min": 7781.0,
+      "median": 7781.0,
+      "max": 7781.0,
+      "mean": 7781.0,
+      "mad": 0.0
+    },
+    "image_height_px": {
+      "count": 200,
+      "min": 64.0,
+      "median": 64.0,
+      "max": 64.0,
+      "mean": 64.0,
+      "mad": 0.0
+    },
+    "image_width_px": {
+      "count": 200,
+      "min": 64.0,
+      "median": 64.0,
+      "max": 64.0,
+      "mean": 64.0,
+      "mad": 0.0
+    },
+    "image_band_count": {
+      "count": 200,
+      "min": 3.0,
+      "median": 3.0,
+      "max": 3.0,
+      "mean": 3.0,
+      "mad": 0.0
+    }
+  },
+  "feature_summaries": {
+    "redshift": {
+      "count": 200,
+      "min": 0.02623186048153025,
+      "median": 0.5758766268522807,
+      "max": 1.696336297444903,
+      "mean": 0.6670452279450056,
+      "mad": 0.35776618368553725
+    },
+    "redshift_warning": {
+      "count": 200,
+      "min": 0.0,
+      "median": 0.0,
+      "max": 518.0,
+      "mean": 10.74,
+      "mad": 0.0
+    },
+    "spectral_samples": {
+      "count": 200,
+      "min": 7781.0,
+      "median": 7781.0,
+      "max": 7781.0,
+      "mean": 7781.0,
+      "mad": 0.0
+    },
+    "wavelength_min_angstrom": {
+      "count": 200,
+      "min": 3600.0,
+      "median": 3600.0,
+      "max": 3600.0,
+      "mean": 3600.0,
+      "mad": 0.0
+    },
+    "wavelength_max_angstrom": {
+      "count": 200,
+      "min": 9824.000000000524,
+      "median": 9824.000000000524,
+      "max": 9824.000000000524,
+      "mean": 9824.000000000524,
+      "mad": 0.0
+    },
+    "wavelength_spacing_median_angstrom": {
+      "count": 200,
+      "min": 0.8000000000001819,
+      "median": 0.8000000000001819,
+      "max": 0.8000000000001819,
+      "mean": 0.8000000000001819,
+      "mad": 0.0
+    },
+    "flux_median": {
+      "count": 200,
+      "min": 0.0,
+      "median": 0.4355861097574234,
+      "max": 10.549457550048828,
+      "mean": 1.2399644583370537,
+      "mad": 0.3661459796130657
+    },
+    "flux_mad": {
+      "count": 200,
+      "min": 0.0,
+      "median": 0.28794851899147034,
+      "max": 1.4998877048492432,
+      "mean": 0.40244704590504626,
+      "mad": 0.1078130193054676
+    },
+    "flux_p05": {
+      "count": 200,
+      "min": -1.814411997795105,
+      "median": -0.49398230016231537,
+      "max": 4.953060150146484,
+      "mean": -0.35790665212087336,
+      "mad": 0.1834656447172165
+    },
+    "flux_p95": {
+      "count": 200,
+      "min": 0.0,
+      "median": 1.2319424748420715,
+      "max": 12.766268730163574,
+      "mean": 2.429901354163885,
+      "mad": 0.48470357060432434
+    },
+    "ivar_positive_fraction": {
+      "count": 200,
+      "min": 0.0,
+      "median": 0.9962087135329649,
+      "max": 1.0,
+      "mean": 0.9736120035985093,
+      "mad": 0.0024418455211412393
+    },
+    "mask_nonzero_fraction": {
+      "count": 200,
+      "min": 0.0,
+      "median": 0.003534250096388639,
+      "max": 0.01786402775992803,
+      "mean": 0.0036197146896285825,
+      "mad": 0.002506104613802853
+    },
+    "snr_median": {
+      "count": 196,
+      "min": 0.12793162940176336,
+      "median": 1.4081089007206962,
+      "max": 11.281555729457525,
+      "mean": 2.105050146924466,
+      "mad": 0.9966532347504733
+    },
+    "snr_p90_abs": {
+      "count": 196,
+      "min": 1.6701781769963568,
+      "median": 3.4160639357746874,
+      "max": 18.68495749478136,
+      "mean": 4.598977893912889,
+      "mad": 1.592566510262766
+    },
+    "model_finite_fraction": {
+      "count": 200,
+      "min": 1.0,
+      "median": 1.0,
+      "max": 1.0,
+      "mean": 1.0,
+      "mad": 0.0
+    },
+    "residual_mad": {
+      "count": 200,
+      "min": 0.0,
+      "median": 0.22844615345820785,
+      "max": 0.7674760818481445,
+      "mean": 0.3192436963355885,
+      "mad": 0.04323166748508811
+    },
+    "residual_rms": {
+      "count": 200,
+      "min": 0.0,
+      "median": 0.6824330880933487,
+      "max": 4.523931399314992,
+      "mean": 0.9708832938570384,
+      "mad": 0.18798097448061257
+    },
+    "image_invalid_fraction": {
+      "count": 200,
+      "min": 0.0,
+      "median": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "mad": 0.0
+    },
+    "background_noise_mad": {
+      "count": 200,
+      "min": 0.0008533254387337365,
+      "median": 0.0038860605949666933,
+      "max": 0.013578276293934322,
+      "mean": 0.0040971290195589895,
+      "mad": 0.0007432546679061491
+    },
+    "image_snr_proxy_median": {
+      "count": 200,
+      "min": -0.22580680827951136,
+      "median": 0.5711357235735716,
+      "max": 15.388866087729843,
+      "mean": 1.4246362103110664,
+      "mad": 0.48623235624125954
+    },
+    "concentration_proxy_median": {
+      "count": 200,
+      "min": 0.004283066448012832,
+      "median": 0.3674834019049111,
+      "max": 0.9140080535630143,
+      "mean": 0.42728337288616314,
+      "mad": 0.16913846731048626
+    },
+    "asymmetry_proxy_median": {
+      "count": 200,
+      "min": 0.2456393579589617,
+      "median": 1.3217703692841214,
+      "max": 1.981336181528026,
+      "mean": 1.170264831341535,
+      "mad": 0.18706609274428032
+    }
+  },
+  "feature_diagnostics": {
+    "constant_features": [
+      "spectral_samples",
+      "wavelength_min_angstrom",
+      "wavelength_max_angstrom",
+      "wavelength_spacing_median_angstrom",
+      "model_finite_fraction",
+      "image_invalid_fraction"
+    ],
+    "highly_correlated_pairs": [
+      {
+        "left": "redshift_warning",
+        "right": "ivar_positive_fraction",
+        "pearson_r": -0.9814016245557105
+      }
+    ],
+    "missing_fraction": {
+      "redshift": 0.0,
+      "redshift_warning": 0.0,
+      "spectral_samples": 0.0,
+      "wavelength_min_angstrom": 0.0,
+      "wavelength_max_angstrom": 0.0,
+      "wavelength_spacing_median_angstrom": 0.0,
+      "flux_median": 0.0,
+      "flux_mad": 0.0,
+      "flux_p05": 0.0,
+      "flux_p95": 0.0,
+      "ivar_positive_fraction": 0.0,
+      "mask_nonzero_fraction": 0.0,
+      "snr_median": 0.020000000000000018,
+      "snr_p90_abs": 0.020000000000000018,
+      "model_finite_fraction": 0.0,
+      "residual_mad": 0.0,
+      "residual_rms": 0.0,
+      "image_invalid_fraction": 0.0,
+      "background_noise_mad": 0.0,
+      "image_snr_proxy_median": 0.0,
+      "concentration_proxy_median": 0.0,
+      "asymmetry_proxy_median": 0.0
+    }
+  },
+  "interpretation": {
+    "scope": "DESI DR1 records catalogue-classified as GALAXY with available DR10 grz cutouts; not representative of all DESI observations.",
+    "image_caveat": "Image S/N, concentration, and asymmetry are simple quality/morphology proxies, not galaxy morphology classifications.",
+    "residual_caveat": "Model residual fields describe spectral model discrepancy only and are not evidence of physical-model failure."
+  },
+  "recommendation": "Suitable for a controlled preliminary multimodal pipeline check, but 200 GALAXY-selected records are too small and selection-biased for general anomaly claims. For the next stage, target 2,000\u20135,000 observations selected in strata of redshift, target program, sky position, signal-to-noise, and spectype; retain quality failures rather than filtering them away.",
+  "plots": [
+    "experiments/results/plots/feature_distributions.png"
+  ]
+}

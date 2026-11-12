@@ -1,0 +1,108 @@
+{
+  "specid": "39633451518791941",
+  "targetid": "39633451518791941",
+  "coordinates": {
+    "ra_deg": 291.6224115489753,
+    "dec_deg": 65.8745830089376
+  },
+  "redshift": 0.18439875961696714,
+  "redshift_warning": {
+    "value": 0,
+    "flags": []
+  },
+  "phase_3_scores_and_ranks": {
+    "spectral_anomaly_score": 0.38553204794209045,
+    "spectral_rank": 162,
+    "image_anomaly_score": 0.6857336232117592,
+    "image_rank": 3,
+    "multimodal_anomaly_score": 0.4938261199178138,
+    "multimodal_rank": 13
+  },
+  "modality_relationship": "Image-dominated",
+  "spectral_quality": {
+    "samples": 7781,
+    "wavelength_min_angstrom": 3600.0,
+    "wavelength_max_angstrom": 9824.000000000524,
+    "nonfinite_wavelength_or_flux_count": 0,
+    "positive_ivar_fraction": 0.9961444544403033,
+    "mask_nonzero_fraction": 0.003855545559696697,
+    "mask_value_counts": {
+      "0": 7751,
+      "1": 30
+    },
+    "valid_pixel_fraction": 0.9961444544403033,
+    "valid_pixel_count": 7751,
+    "snr_median": 1.6655531185764008,
+    "snr_abs_p90": 3.212712953869775,
+    "flux_median_valid": 0.8905543088912964,
+    "flux_mad_valid": 0.41962313652038574
+  },
+  "model_discrepancy": {
+    "residual_valid_pixels": 7751,
+    "residual_valid_fraction": 0.9961444544403033,
+    "residual_median": -0.0007612109184265137,
+    "residual_mad": 0.3880190849304199,
+    "residual_rms": 1.281780546691735,
+    "standardized_residual_abs_p95": 1.9504818486731998,
+    "standardized_residual_abs_p99": 2.5602308255719635,
+    "high_standardized_residual_pixel_count": 0,
+    "discrepancy_regions": []
+  },
+  "image_evidence": {
+    "bands": "grz",
+    "per_band_statistics": {
+      "g": {
+        "finite_pixels": 4096,
+        "invalid_fraction": 0.0,
+        "median": 0.001498886151239276,
+        "mad": 0.0018800460529746488,
+        "p05": -0.0012084510817658156,
+        "p95": 0.2232578545808792
+      },
+      "r": {
+        "finite_pixels": 4096,
+        "invalid_fraction": 0.0,
+        "median": 0.0029809968546032906,
+        "mad": 0.0036845114664174616,
+        "p05": -0.0029275206616148353,
+        "p95": 2.989830493927002
+      },
+      "z": {
+        "finite_pixels": 4096,
+        "invalid_fraction": 0.0,
+        "median": 0.004923942498862743,
+        "mad": 0.011429781559854746,
+        "p05": -0.018235180526971817,
+        "p95": 0.18887734040617943
+      }
+    },
+    "quality_and_proxy_metrics": {
+      "image_band_count": 3.0,
+      "image_height_px": 64.0,
+      "image_width_px": 64.0,
+      "image_finite_fraction": 1.0,
+      "image_invalid_fraction": 0.0,
+      "image_pixel_median": 0.002480659168213606,
+      "image_pixel_mad": 0.004222929826937616,
+      "background_median": 0.0016743181622587144,
+      "background_noise_mad": 0.003749817107117269,
+      "image_snr_proxy_median": 2.491275171057416,
+      "concentration_proxy_median": 0.01578394653710578,
+      "asymmetry_proxy_median": 1.9685214164034581
+    }
+  },
+  "limitations": [
+    "Scores are Phase 3 relative baseline rankings, not probabilities or discoveries.",
+    "Fitted-model residuals are spectral model discrepancy diagnostics, not evidence of physical-model failure.",
+    "Image concentration, asymmetry, and S/N are simple proxies, not morphology classifications.",
+    "Legacy Survey image comparison is cross-survey consistency evidence, not independent confirmation."
+  ],
+  "alternative_explanations": [
+    "low valid-pixel coverage or masking",
+    "limited spectral S/N or redshift-fit warning flags",
+    "image background/contrast differences or cutout context",
+    "baseline sensitivity to the small, GALAXY-only selection"
+  ],
+  "recommended_follow_up": "Inspect the raw spectrum, mask locations, fitted-model assumptions, redshift-warning flags, and cutout context before any astrophysical interpretation.",
+  "plot": "experiments/results/evidence/plots/39633451518791941.png"
+}
