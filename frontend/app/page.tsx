@@ -1,17 +1,84 @@
-'use client';
-import { useEffect,useMemo,useState } from 'react'; import dynamic from 'next/dynamic'; import { AnimatePresence,motion } from 'framer-motion'; import type { Candidate,Dossier,RobustnessRun,SpectrumPayload } from '../lib/types'; import SpectrumCharts from '../components/SpectrumCharts'; import { selectCandidates } from '../lib/selection';
-const SkyScene=dynamic(()=>import('../observatory/SkyScene'),{ssr:false,loading:()=> <div className="h-[380px] animate-pulse rounded-xl bg-panel"/>});
-const fmt=(n:number|null|undefined,d=2)=>n==null||!Number.isFinite(n)?'Unavailable':n.toFixed(d); const chip=(label:string)=> <span className="rounded-full border border-[#365471] px-2 py-1 text-xs text-[#c6d8ec]">{label}</span>;
-export default function Observatory(){const [items,setItems]=useState<Candidate[]>([]);const [selected,setSelected]=useState<Candidate|null>(null);const [dossier,setDossier]=useState<Dossier|null>(null);const [spectrum,setSpectrum]=useState<SpectrumPayload|null>(null);const [robust,setRobust]=useState<RobustnessRun[]>([]);const [research,setResearch]=useState<any>(null);const [query,setQuery]=useState('');const [category,setCategory]=useState('All');const [sort,setSort]=useState<'multimodal_rank'|'spectral_rank'|'image_rank'>('multimodal_rank');
-useEffect(()=>{Promise.all([fetch('/api/candidates').then(r=>r.json()),fetch('/api/robustness').then(r=>r.json()),fetch('/api/research').then(r=>r.json())]).then(([c,r,s])=>{setItems(c);setRobust(r);setResearch(s);setSelected(c.sort((a:Candidate,b:Candidate)=>a.multimodal_rank-b.multimodal_rank)[0])}).catch(()=>undefined)},[]);
-useEffect(()=>{if(!selected)return;Promise.all([fetch(`/api/candidates/${selected.specid}`).then(r=>r.ok?r.json():null),fetch(`/api/candidates/${selected.specid}/spectrum`).then(r=>r.ok?r.json():null)]).then(([d,s])=>{setDossier(d);setSpectrum(s)})},[selected]);
-const categories=useMemo(()=>['All',...Array.from(new Set(items.map(x=>x.triage_category)))],[items]);const filtered=useMemo(()=>selectCandidates(items,query,category,sort),[items,category,query,sort]);const runSummary=useMemo(()=>{const group=new Map<string,RobustnessRun[]>();robust.forEach(x=>{const key=`${x.scenario} / ${x.mode}`;group.set(key,[...(group.get(key)||[]),x])});return [...group.entries()].map(([label,values])=>({label,s:values.reduce((a,v)=>a+v.spearman,0)/values.length,t:values.reduce((a,v)=>a+v.top20_retention,0)/values.length}))},[robust]);
-return <main className="min-h-screen grid-bg"><header className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-7"><div><p className="label text-cyan">LIMEN / research observatory</p><h1 className="mt-1 text-3xl font-semibold tracking-tight">Evidence-aware candidate investigation</h1></div><div className="text-right text-sm text-mute">DESI DR1 × Legacy Survey DR10<br/><span className="text-xs">Local experimental outputs • 200 observations</span></div></header><div className="mx-auto max-w-[1500px] space-y-6 px-6 pb-12">
-<section className="grid gap-5 lg:grid-cols-[1.55fr_.9fr]"><div className="card p-4"><div className="mb-3 flex items-center justify-between"><div><p className="label">Sky-coordinate observatory</p><p className="text-sm text-mute">RA/Dec projected onto a unit celestial sphere; not a physical 3D reconstruction.</p></div>{selected&&chip(selected.triage_category)}</div><SkyScene items={items} onPick={setSelected}/><div className="mt-3 flex flex-wrap gap-2 text-xs text-mute"><span>● amber: both modalities</span><span>● cyan: spectral</span><span>● gray: image</span><span>● rose: evidence-sensitive</span><span className="ml-auto">Drag to orbit • scroll to zoom • reload to reset</span></div></div><div className="card p-5"><p className="label">Research snapshot</p><div className="mt-5 grid grid-cols-2 gap-4"><Metric label="Dataset" value="200" sub="real DR1 spectra & DR10 cutouts"/><Metric label="Investigation set" value="39" sub="deduplicated Phase 3 top-20 union"/><Metric label="Quality reads" value="0" sub="Phase 2 spectral/image errors"/><Metric label="Triage" value={research?String(research.triage.candidate_count):'…'} sub="rule-based dossiers; no priority score"/></div><div className="mt-6 border-t border-[#1e314b] pt-4 text-sm text-mute">Scores are relative within this GALAXY-only pilot. They are not probabilities, discoveries, or independent cross-survey confirmation.</div></div></section>
-<section className="grid gap-6 xl:grid-cols-[.85fr_1.15fr]"><div className="card overflow-hidden"><div className="border-b border-[#1e314b] p-4"><p className="label">Candidate explorer / {filtered.length} of 39</p><div className="mt-3 grid gap-2 sm:grid-cols-2"><input aria-label="Search candidates" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search specid or targetid" className="rounded-lg border border-[#29415d] bg-[#09111f] px-3 py-2 text-sm outline-none focus:border-cyan"/><select aria-label="Filter triage category" value={category} onChange={e=>setCategory(e.target.value)} className="rounded-lg border border-[#29415d] bg-[#09111f] px-3 py-2 text-sm">{categories.map(x=><option key={x}>{x}</option>)}</select><select aria-label="Sort candidates" value={sort} onChange={e=>setSort(e.target.value as typeof sort)} className="rounded-lg border border-[#29415d] bg-[#09111f] px-3 py-2 text-sm sm:col-span-2"><option value="multimodal_rank">Sort: original multimodal rank</option><option value="spectral_rank">Sort: original spectral rank</option><option value="image_rank">Sort: original image rank</option></select></div></div><div className="scroll max-h-[630px] overflow-y-auto">{filtered.map(c=><button key={c.specid} onClick={()=>setSelected(c)} className={`w-full border-b border-[#182941] p-4 text-left transition hover:bg-[#101e32] ${selected?.specid===c.specid?'bg-[#122640]':''}`}><div className="flex justify-between gap-3"><div><div className="font-mono text-sm">{c.specid}</div><div className="mt-1 text-xs text-mute">RA {c.ra_deg.toFixed(3)}° · Dec {c.dec_deg.toFixed(3)}° · z {fmt(c.redshift,3)}</div></div><span className="text-right text-xs text-cyan">M {c.multimodal_rank}<br/>S {c.spectral_rank} · I {c.image_rank}</span></div><p className="mt-2 text-xs text-mute">{c.triage_category}</p></button>)}</div></div>
-<Evidence dossier={dossier} spectrum={spectrum} selected={selected}/></section>
-<section className="grid gap-6 lg:grid-cols-2"><div className="card p-5"><p className="label">Robustness studio</p><h2 className="mt-1 text-xl">Controlled degradation stability</h2><p className="mt-2 text-sm text-mute">Phase 5 refits the pipeline with fixed hyperparameters. This is refit-pipeline sensitivity, not frozen-model robustness or scientific accuracy.</p><div className="mt-5 space-y-3">{runSummary.map(row=><div key={row.label} className="grid grid-cols-[1fr_auto_auto] gap-3 border-b border-[#1e314b] pb-3 text-sm"><span>{row.label.replace('_',' ')}</span><span className="text-cyan">ρ {row.s.toFixed(3)}</span><span className="text-mute">top-20 {row.t.toFixed(1)}/20</span></div>)}</div></div><div className="card p-5"><p className="label">Research record</p><h2 className="mt-1 text-xl">Methods & limits</h2><ul className="mt-4 space-y-3 text-sm text-mute"><li>Phase 2: all 200 cached spectra and images read successfully; 3×64×64 grz cutouts.</li><li>Phase 3: fixed-seed Isolation Forest spectral, image, and equalized multimodal baselines.</li><li>Phase 4: mask-aware residual context and individual DESI ZWARN bit decoding.</li><li>Phase 6: transparent categories are workflow labels, not astronomy classifications.</li><li>Legacy Survey imagery is cross-survey consistency evidence, not independent confirmation.</li></ul></div></section>
-</div></main>}
-function Metric({label,value,sub}:{label:string;value:string;sub:string}){return <div><p className="metric">{value}</p><p className="label mt-1">{label}</p><p className="mt-1 text-xs text-mute">{sub}</p></div>}
-function Evidence({dossier,spectrum,selected}:{dossier:Dossier|null;spectrum:SpectrumPayload|null;selected:Candidate|null}){if(!selected)return <div className="card p-6">Loading candidate…</div>;const c=dossier?.candidate;const q=c?.spectral_quality||{};const image=c?.image_evidence?.quality_and_proxy_metrics||{};return <div className="card p-5"><AnimatePresence mode="wait"><motion.div key={selected.specid} initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} exit={{opacity:0}}><div className="flex flex-wrap items-start justify-between gap-3"><div><p className="label">Evidence laboratory</p><h2 className="font-mono text-xl">{selected.specid}</h2><p className="mt-1 text-sm text-mute">{selected.triage_category}</p></div>{chip(`ZWARN ${selected.zwarn_value}`)}</div><div className="mt-4 grid gap-3 sm:grid-cols-3"><Metric label="Spectral rank" value={`#${selected.spectral_rank}`} sub={`score ${fmt(selected.spectral_score,3)}`}/><Metric label="Image rank" value={`#${selected.image_rank}`} sub={`score ${fmt(selected.image_score,3)}`}/><Metric label="Multimodal rank" value={`#${selected.multimodal_rank}`} sub={`score ${fmt(selected.multimodal_score,3)}`}/></div><div className="mt-5 grid gap-5 lg:grid-cols-[1.45fr_.8fr]">{spectrum?<SpectrumCharts spectrum={spectrum}/>:<p className="text-mute">Spectrum display data unavailable.</p>}<div><p className="label mb-2">Actual FITS-derived grz preview</p><img src={`/api/candidates/${selected.specid}/image`} alt={`Legacy Survey DR10 grz preview for ${selected.specid}`} className="aspect-square w-full rounded-lg border border-[#29415d] object-cover" onError={e=>{e.currentTarget.style.display='none'}}/><div className="mt-3 grid grid-cols-2 gap-2 text-xs"><K label="Valid pixels" value={fmt(q.valid_pixel_fraction as number,3)}/><K label="S/N |p90|" value={fmt(q.snr_abs_p90 as number,2)}/><K label="Mask fraction" value={fmt(q.mask_nonzero_fraction as number,3)}/><K label="Image invalid" value={fmt(image.image_invalid_fraction as number,3)}/></div></div></div><div className="mt-5 grid gap-4 border-t border-[#1e314b] pt-4 md:grid-cols-2"><div><p className="label">Triage explanation</p><p className="mt-2 text-sm text-[#c6d8ec]">{dossier?.triage.reasons.join(' ')||'Loading dossier…'}</p><p className="mt-2 text-xs text-mute">{dossier?.triage.remaining_uncertainties.join(' ')}</p></div><div><p className="label">Warnings & discrepancy</p><p className="mt-2 text-sm text-[#c6d8ec]">{c?.redshift_warning.flags.length?c.redshift_warning.flags.map(x=>x.name).join(', '):'No decoded ZWARN flags.'}</p><p className="mt-2 text-xs text-mute">Residual plot uses finite, unmasked, positive-ivar pixels only. It describes model discrepancy—not physical-model failure.</p></div></div></motion.div></AnimatePresence></div>}
-function K({label,value}:{label:string;value:string}){return <div className="rounded bg-[#09111f] p-2"><p className="label">{label}</p><p className="mt-1">{value}</p></div>}
+'use client'
+
+import Link from 'next/link'
+import { ArrowDown, ArrowRight, Atom, AudioLines, BookOpen, CircleDot, Crosshair, ScanSearch } from 'lucide-react'
+import { motion, useReducedMotion } from 'framer-motion'
+
+const destinations = [
+  { number: '01', title: 'Observatory', text: 'Locate the 200 real DESI candidates across the sky, plotted at their measured coordinates.', icon: CircleDot, active: true },
+  { number: '02', title: 'Galaxy Atlas', text: 'Browse the Legacy Survey DR10 g, r, z observations behind each investigation.', icon: ScanSearch },
+  { number: '03', title: 'Evidence Laboratory', text: 'Interrogate spectra, model fits, residuals, imaging, and quality evidence together.', icon: AudioLines },
+  { number: '04', title: 'Robustness Studio', text: 'Examine the actual Phase 5 perturbation experiments and their measured outcomes.', icon: Atom },
+  { number: '05', title: 'Research & Methodology', text: 'Follow the scientific pipeline, experimental design, findings, and limitations.', icon: BookOpen },
+  { number: '06', title: 'Candidate dossier', text: 'Carry one candidate’s evidence consistently from the atlas or sky into its investigation.', icon: Crosshair },
+]
+
+export default function Home() {
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <main className="limen-home">
+      <section className="hero-shell" aria-labelledby="hero-title">
+        <div className="hero-image" aria-hidden="true" />
+        <div className="hero-vignette" aria-hidden="true" />
+        <div className="hero-stars" aria-hidden="true" />
+        <header className="site-nav">
+          <Link href="/" className="brand" aria-label="LIMEN home">
+            <span className="brand-mark"><span /></span>
+            <span>LIMEN<small>ASTRONOMICAL INVESTIGATION</small></span>
+          </Link>
+          <nav aria-label="Main navigation">
+            <a href="#investigation">The investigation</a>
+            <a href="#research">Research</a>
+            <Link className="nav-enter" href="/observatory">Enter observatory <ArrowRight aria-hidden="true" /></Link>
+          </nav>
+        </header>
+
+        <div className="hero-content">
+          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <p className="eyebrow"><span className="eyebrow-line" /> A MULTIMODAL ASTRONOMICAL INVESTIGATION</p>
+            <h1 id="hero-title">Where the<br /><em>unexplained</em> begins.</h1>
+            <p className="hero-copy">The universe is full of things we can detect but cannot yet explain. LIMEN brings spectra, galaxy images, and physical models together to investigate what lies beyond the familiar.</p>
+            <div className="hero-actions">
+              <Link href="/observatory" className="button-primary">Enter the Observatory <ArrowRight aria-hidden="true" /></Link>
+              <a href="#research" className="button-quiet">Explore the research <span>↓</span></a>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="hero-caption"><span>DESI DR1 × LEGACY SURVEY DR10</span><span>200 CANDIDATES · ONE INVESTIGATION</span></div>
+        <a href="#investigation" className="scroll-cue" aria-label="Scroll to explore"><span /><ArrowDown aria-hidden="true" /></a>
+      </section>
+
+      <section className="manifesto" id="research">
+        <div className="section-kicker"><span>01 / THE QUESTION</span><span>AN OPEN INVESTIGATION</span></div>
+        <div className="manifesto-grid">
+          <h2>Not just what is unusual.<br /><em>What can’t we explain?</em></h2>
+          <div className="manifesto-copy"><p>Rare astronomical observations can be unusual for many reasons. LIMEN brings independent kinds of evidence into one careful investigation—without mistaking a model score for a discovery.</p><p className="manifesto-pull">Don’t just detect the anomaly.<br /><span>Interrogate it.</span></p></div>
+        </div>
+      </section>
+
+      <section className="investigation-section" id="investigation">
+        <div className="section-kicker"><span>02 / ONE CONNECTED PLATFORM</span><span>BUILT AROUND THE CANDIDATE</span></div>
+        <div className="section-heading"><h2>Every clue, in context.</h2><p>Move from the measured sky position to the underlying observations, evidence, and experimental record. A selected candidate is the thread that connects every view.</p></div>
+        <div className="destination-grid">
+          {destinations.map(({ number, title, text, icon: Icon, active }) => (
+            <article key={number} className={`destination ${active ? 'destination-active' : ''}`}>
+              <div className="destination-top"><span>{number}</span><Icon aria-hidden="true" /></div>
+              <h3>{title}</h3><p>{text}</p>
+              {active && <Link href="/observatory" aria-label="Open the Observatory">Open investigation <ArrowRight aria-hidden="true" /></Link>}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="data-note">
+        <span className="data-orbit" aria-hidden="true" />
+        <div><p className="eyebrow">EVIDENCE BEFORE INTERPRETATION</p><h2>Real observations.<br /><em>Careful conclusions.</em></h2></div>
+        <p className="data-copy">The existing 200 Legacy Survey DR10 grz cutouts remain the scientific inputs. Candidate identifiers, coordinates, spectra, and experiment outputs come from the project’s research data—not generated examples.</p>
+      </section>
+
+      <footer className="site-footer"><Link href="/" className="footer-wordmark">LIMEN</Link><span>Multimodal Astronomical Outlier Discovery through Representation Learning, Physics-Model Discrepancy, and Cross-Survey Validation.</span><Link href="/observatory">Begin the investigation <ArrowRight aria-hidden="true" /></Link></footer>
+    </main>
+  )
+}
