@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Observation } from '../lib/types';
 import { useObservationSelection } from '../lib/use-observation-selection';
 
@@ -42,6 +42,14 @@ export default function AtlasExplorer({ observations }: { observations: Observat
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const visible = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
+  useEffect(() => {
+    if (!specid) return;
+    const selectedIndex = filtered.findIndex((item) => item.specid === specid);
+    if (selectedIndex < 0) return;
+    const selectedPage = Math.floor(selectedIndex / PAGE_SIZE);
+    setPage((current) => current === selectedPage ? current : selectedPage);
+  }, [filtered, specid]);
+
   return (
     <main className="min-h-screen bg-[#070b14] text-[#e5edf7]">
       <header className="border-b border-white/[0.07] bg-[#09111f]/80">
@@ -57,21 +65,21 @@ export default function AtlasExplorer({ observations }: { observations: Observat
 
       <div className="mx-auto max-w-[1500px] px-5 py-6 sm:px-8">
         <section aria-label="Atlas filters" className="rounded-2xl border border-white/[0.09] bg-[#0c1523]/90 p-4 shadow-[0_20px_80px_rgba(0,0,0,.2)] sm:p-5">
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[1.35fr_1fr_1.1fr_1fr_1fr]">
-            <label className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Search observations
-              <input aria-label="Search by specid or targetid" value={query} onChange={(event) => { setQuery(event.target.value); setPage(0); }} placeholder="specid or targetid" className="h-11 rounded-lg border border-[#263b53] bg-[#080f1a] px-3 font-mono text-sm normal-case tracking-normal text-[#e5edf7] outline-none placeholder:text-[#62758e] focus:border-cyan" />
+          <div className="grid min-w-0 gap-3 md:grid-cols-2 xl:grid-cols-[1.35fr_1fr_1.1fr_1fr_1fr]">
+            <label className="flex min-w-0 flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Search observations
+              <input aria-label="Search by specid or targetid" value={query} onChange={(event) => { setQuery(event.target.value); setPage(0); }} placeholder="specid or targetid" className="h-11 w-full min-w-0 max-w-full rounded-lg border border-[#263b53] bg-[#080f1a] px-3 font-mono text-sm normal-case tracking-normal text-[#e5edf7] outline-none placeholder:text-[#62758e] focus:border-cyan" />
             </label>
-            <label className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Triage category
-              <select aria-label="Filter by triage category" value={category} onChange={(event) => { setCategory(event.target.value); setPage(0); }} className="h-11 rounded-lg border border-[#263b53] bg-[#080f1a] px-3 text-sm normal-case tracking-normal text-[#e5edf7] outline-none focus:border-cyan">{categories.map((value) => <option key={value}>{value}</option>)}</select>
+            <label className="flex min-w-0 flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Triage category
+              <select aria-label="Filter by triage category" value={category} onChange={(event) => { setCategory(event.target.value); setPage(0); }} className="h-11 w-full min-w-0 max-w-full rounded-lg border border-[#263b53] bg-[#080f1a] px-3 text-sm normal-case tracking-normal text-[#e5edf7] outline-none focus:border-cyan">{categories.map((value) => <option key={value}>{value}</option>)}</select>
             </label>
-            <label className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Modality relationship
-              <select aria-label="Filter by modality relationship" value={relationship} onChange={(event) => { setRelationship(event.target.value); setPage(0); }} className="h-11 rounded-lg border border-[#263b53] bg-[#080f1a] px-3 text-sm normal-case tracking-normal text-[#e5edf7] outline-none focus:border-cyan">{relationships.map((value) => <option key={value}>{value}</option>)}</select>
+            <label className="flex min-w-0 flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Modality relationship
+              <select aria-label="Filter by modality relationship" value={relationship} onChange={(event) => { setRelationship(event.target.value); setPage(0); }} className="h-11 w-full min-w-0 max-w-full rounded-lg border border-[#263b53] bg-[#080f1a] px-3 text-sm normal-case tracking-normal text-[#e5edf7] outline-none focus:border-cyan">{relationships.map((value) => <option key={value}>{value}</option>)}</select>
             </label>
-            <label className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Anomaly modality
-              <select aria-label="Filter by anomaly modality" value={modality} onChange={(event) => { setModality(event.target.value as Modality); setPage(0); }} className="h-11 rounded-lg border border-[#263b53] bg-[#080f1a] px-3 text-sm normal-case tracking-normal text-[#e5edf7] outline-none focus:border-cyan">{modalities.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select>
+            <label className="flex min-w-0 flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Anomaly modality
+              <select aria-label="Filter by anomaly modality" value={modality} onChange={(event) => { setModality(event.target.value as Modality); setPage(0); }} className="h-11 w-full min-w-0 max-w-full rounded-lg border border-[#263b53] bg-[#080f1a] px-3 text-sm normal-case tracking-normal text-[#e5edf7] outline-none focus:border-cyan">{modalities.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select>
             </label>
-            <label className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Rank order
-              <select aria-label="Sort by anomaly rank" value={sort} onChange={(event) => setSort(event.target.value as SortKey)} className="h-11 rounded-lg border border-[#263b53] bg-[#080f1a] px-3 text-sm normal-case tracking-normal text-[#e5edf7] outline-none focus:border-cyan">
+            <label className="flex min-w-0 flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-[#91a4bd]">Rank order
+              <select aria-label="Sort by anomaly rank" value={sort} onChange={(event) => setSort(event.target.value as SortKey)} className="h-11 w-full min-w-0 max-w-full rounded-lg border border-[#263b53] bg-[#080f1a] px-3 text-sm normal-case tracking-normal text-[#e5edf7] outline-none focus:border-cyan">
                 <option value="multimodal_rank">Multimodal rank</option><option value="spectral_rank">Spectral rank</option><option value="image_rank">Image rank</option>
               </select>
             </label>

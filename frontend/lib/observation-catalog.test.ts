@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { candidates, observationCatalog } from './data';
+import { candidates, dossier, observationCatalog } from './data';
 
 describe('joined DESI observation catalog', () => {
   it('includes all 200 phase-2 rows, unique exact specids, and the 39 existing Phase 6 dossiers', async () => {
@@ -19,6 +19,16 @@ describe('joined DESI observation catalog', () => {
       multimodal_rank: expect.any(Number),
     });
     expect(observations.find((item) => !item.hasDossier)).toMatchObject({ triage_category: null, hasDossier: false });
+  });
+
+  it('joins the real Phase 4 diagnostics to the Phase 6 interpretation dossier', async () => {
+    const record = await dossier('39627432617054050');
+    expect(record.candidate.specid).toBe('39627432617054050');
+    expect(record.phase4?.spectral_quality.samples).toBe(7781);
+    expect(record.phase4?.spectral_quality.mask_nonzero_fraction).toBeCloseTo(0.0046266547, 8);
+    expect(record.phase4?.model_discrepancy.discrepancy_regions).toHaveLength(1);
+    expect(record.evidence_dimensions.robustness.multimodal).toMatchObject({ runs: 24 });
+    expect(record.triage.interpretation_boundary).toContain('not');
   });
 
   it('matches the exact Phase 6 roster and handles all missing previews explicitly', async () => {
