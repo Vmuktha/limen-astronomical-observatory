@@ -34,7 +34,19 @@ function Points({ observations, selectedId, onPick }: { observations: Observatio
 export default function SkyScene({ observations, selectedId, onPick }: { observations: Observation[]; selectedId: string | null; onPick: (specid: string) => void }) {
   const [view, setView] = useState(0);
   return <div className="relative h-[380px] overflow-hidden rounded-xl border border-[#1e314b]">
-    <Canvas key={view} camera={{ position: [0, 0, 7], fov: 48 }} dpr={[1, 1.35]}>
+    <Canvas
+      key={view}
+      camera={{ position: [0, 0, 7], fov: 48 }}
+      dpr={[1, 1.35]}
+      fallback={(
+        <div role="status" className="flex h-[380px] flex-col items-center justify-center bg-[#080f1a] px-6 text-center">
+          <p className="label">Sky rendering unavailable</p>
+          <p className="mt-3 max-w-md text-sm leading-6 text-[#91a0b8]">
+            This browser could not create a WebGL context. The 200-object catalog, candidate explorer, and evidence views remain available below.
+          </p>
+        </div>
+      )}
+    >
       <color attach="background" args={['#070b14']} />
       <ambientLight intensity={0.4} />
       <Stars radius={35} depth={20} count={900} factor={1.3} saturation={0} fade speed={0.2} />

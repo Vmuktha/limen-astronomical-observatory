@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import type { Candidate, Dossier, Observation } from './types';
+import type { Candidate, Dossier, Observation, Phase4Dossier, RobustnessRun } from './types';
 
 const ROOT = path.resolve(process.cwd(), '..');
 const results = (...parts: string[]) => path.join(ROOT, 'experiments', 'results', ...parts);
@@ -130,7 +130,11 @@ export async function candidates(): Promise<Candidate[]> {
 
 export async function dossier(id: string): Promise<Dossier> {
   if (!/^\d+$/.test(id)) throw new Error('Invalid observation identifier');
-  return JSON.parse(await fs.readFile(results('triage', 'dossiers', `${id}.json`), 'utf8'));
+  const phase6Path = results('triage', 'dossiers', `${id}.json`);
+  const phase4Path = results('evidence', 'dossiers', `${id}.json`);
+  const [phase6Text, hasPhase4] = await Promise.all([fs.readFile(phase6Path, 'utf8'), exists(phase4Path)]);
+  const phase4 = hasPhase4 ? (JSON.parse(await fs.readFile(phase4Path, 'utf8')) as Phase4Dossier) : null;
+  return { ...(JSON.parse(phase6Text) as Dossier), phase4 };
 }
 
 export async function researchSummary() {
@@ -138,8 +142,8 @@ export async function researchSummary() {
   return { audit, baseline, robust, triage };
 }
 
-export async function robustness() {
-  const raw = JSON.parse(await fs.readFile(results('robustness', 'robustness_results.json'), 'utf8'));
+export async function robustness(): Promise<RobustnessRun[]> {
+  const raw = JSON.parse(await fs.readFile(results('robustness', 'robustness_results.json'), 'utf8')) as { results: RobustnessRun[] };
   return raw.results;
 }
 
